@@ -38,10 +38,10 @@ public class GameOfLifeFrame
         jPanelIteratorHolder = new JPanel();
         jLabelIteratorLabel = new JLabel();
         jLabelIterator = new JLabel();
-        jPanel2 = new JPanel();
+        jPanelSliderHolder = new JPanel();
         jSliderSpeed = new JSlider();
-        jPanel3 = new JPanel();
-        jLabel3 = new JLabel();
+        jPanelBottom = new JPanel();
+        jLabelSliderLabel = new JLabel();
         jComboBoxSelector = new JComboBox<>();
         boardPanel = new BoardPanel();
         jMenuBar = new JMenuBar();
@@ -71,7 +71,7 @@ public class GameOfLifeFrame
 
         getContentPane().add(jPanelIteratorHolder, java.awt.BorderLayout.EAST);
 
-        jPanel2.setLayout(new java.awt.GridLayout(1, 2));
+        jPanelSliderHolder.setLayout(new java.awt.GridLayout(1, 2));
 
         jSliderSpeed.setMaximum(200);
         jSliderSpeed.setValue(0);
@@ -84,23 +84,23 @@ public class GameOfLifeFrame
                     timer.stop();
             }
         });
-        jPanel2.add(jSliderSpeed);
+        jPanelSliderHolder.add(jSliderSpeed);
 
-        jPanel3.setLayout(new java.awt.GridLayout(1, 2));
+        jPanelBottom.setLayout(new java.awt.GridLayout(1, 2));
 
-        jLabel3.setText("<- Speed");
-        jPanel3.add(jLabel3);
+        jLabelSliderLabel.setText("<- Speed");
+        jPanelBottom.add(jLabelSliderLabel);
 
         jComboBoxSelector.setModel(model);
         jComboBoxSelector.addActionListener(evt -> {
             boardPanel.setBoard((BoardTypes) jComboBoxSelector.getSelectedItem());
             jLabelIterator.setText("0");
         });
-        jPanel3.add(jComboBoxSelector);
+        jPanelBottom.add(jComboBoxSelector);
 
-        jPanel2.add(jPanel3);
+        jPanelSliderHolder.add(jPanelBottom);
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(jPanelSliderHolder, java.awt.BorderLayout.SOUTH);
 
         boardPanel.addMouseListener(new MouseAdapter(){
             @Override
@@ -184,7 +184,7 @@ public class GameOfLifeFrame
     protected gameoflife.BoardPanel boardPanel;
     protected JComboBox<BoardTypes> jComboBoxSelector;
     protected JLabel jLabelIteratorLabel;
-    protected JLabel jLabel3;
+    protected JLabel jLabelSliderLabel;
     protected JLabel jLabelIterator;
     protected JMenu jMenuFile;
     protected JMenuBar jMenuBar;
@@ -197,8 +197,8 @@ public class GameOfLifeFrame
     protected JMenuItem jMenuItemRandomColor;
     protected JMenuItem jMenuItemRed;
     protected JPanel jPanelIteratorHolder;
-    protected JPanel jPanel2;
-    protected JPanel jPanel3;
+    protected JPanel jPanelSliderHolder;
+    protected JPanel jPanelBottom;
     protected JSlider jSliderSpeed;
     protected Timer timer;
     protected DefaultComboBoxModel<BoardTypes> model;
