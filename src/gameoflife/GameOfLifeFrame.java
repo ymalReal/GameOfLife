@@ -3,8 +3,7 @@ package gameoflife;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 /**
  * GameOfLife
@@ -32,7 +31,7 @@ public class GameOfLifeFrame
     }
 
     /**
-     *
+     * Initializes and creates every portion of the UI
      */
     protected void initComponents(){
         jPanelIteratorHolder = new JPanel();
@@ -46,9 +45,12 @@ public class GameOfLifeFrame
         boardPanel = new BoardPanel();
         jMenuBar = new JMenuBar();
         jMenuFile = new JMenu();
+        jMenuFileLoad = new JMenuItem();
+        jMenuFileSave = new JMenuItem();
         jMenuEdit = new JMenu();
-        jMenuItemClear = new JMenuItem();
+        jMenuFileSave = new JMenuItem();
         jMenuEditColor = new JMenu();
+        jMenuItemClear = new JMenuItem();
         jMenuItemRed = new JMenuItem();
         jMenuItemBlue = new JMenuItem();
         jMenuItemGreen = new JMenuItem();
@@ -112,12 +114,27 @@ public class GameOfLifeFrame
         getContentPane().add(boardPanel, java.awt.BorderLayout.CENTER);
 
         jMenuFile.setText("File");
+
+        jMenuFileSave.setText("Save Board...");
+        jMenuFileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.META_MASK));
+        jMenuFileSave.addActionListener(e -> boardPanel.save());
+        jMenuFile.add(jMenuFileSave);
+
+        jMenuFileLoad.setText("Load Board...");
+        jMenuFileLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.META_MASK));
+        jMenuFileLoad.addActionListener(e -> {
+            boardPanel.load();
+            jLabelIterator.repaint();
+        });
+        jMenuFile.add(jMenuFileLoad);
+
+
         jMenuBar.add(jMenuFile);
 
         jMenuEdit.setText("Edit");
 
-        jMenuItemClear.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.META_MASK));
-        jMenuItemClear.setText("Clear WrapAroundBoard");
+        jMenuItemClear.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.META_MASK));
+        jMenuItemClear.setText("Clear Board");
         jMenuItemClear.addActionListener(e -> {
             boardPanel.clear();
             jLabelIterator.setText("0");
@@ -187,6 +204,8 @@ public class GameOfLifeFrame
     protected JLabel jLabelSliderLabel;
     protected JLabel jLabelIterator;
     protected JMenu jMenuFile;
+    protected JMenuItem jMenuFileSave;
+    protected JMenuItem jMenuFileLoad;
     protected JMenuBar jMenuBar;
     protected JMenu jMenuEdit;
     protected JMenu jMenuEditColor;

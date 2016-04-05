@@ -2,16 +2,19 @@ package gameoflife.boards;
 
 import gameoflife.exceptions.NotOnBoardException;
 
+import java.io.Serializable;
+
 /**
  * GameOfLife
  * Created by willne763
  * on 8/3/16.
  */
-public abstract class Board{
+public abstract class Board
+        implements Serializable{
 
     protected boolean[][] board;
-    protected int size;
     protected int iterations;
+    protected int size;
 
     public int getIterations(){
         return iterations;

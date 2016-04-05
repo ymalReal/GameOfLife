@@ -1,28 +1,33 @@
 package gameoflife;
 
 import gameoflife.boards.*;
+import gameoflife.exceptions.BoardFileFormatException;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
-import javax.swing.JComponent;
+import java.io.File;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class BoardPanel
         extends JComponent{
     
+    public final static int DEFAULT_SIZE = 65;
+
     private int size;
     private int speed;
     private Color selectedColor;
     private Board board;
     
-    private Rectangle2D[][] rects;
+    private Rectangle2D[][] rectangles;
     
     public BoardPanel(){
-        this.size = 65;
+        this.size = DEFAULT_SIZE;
         this.speed = 0;
         board = new WrapAroundBoard(size);
-        rects = new Rectangle2D[size][size];
+        rectangles = new Rectangle2D[size][size];
         selectedColor = Color.RED;
         prepBoard();
     }
@@ -30,7 +35,7 @@ public class BoardPanel
     public BoardPanel(int size){
         this.size = size;
         board = new WrapAroundBoard(size);
-        rects = new Rectangle2D[size][size];
+        rectangles = new Rectangle2D[size][size];
         selectedColor = Color.RED;
         prepBoard();
     }
@@ -38,7 +43,7 @@ public class BoardPanel
     private void prepBoard(){
         for(int x = 0; x<size; x++){
             for(int y = 0; y<size; y++){
-                rects[x][y] = new Rectangle2D.Double(x*10, y*10, 10, 10);
+                rectangles[x][y] = new Rectangle2D.Double(x*10, y*10, 10, 10);
             }
         }
     }
@@ -46,7 +51,7 @@ public class BoardPanel
     public void clicked(MouseEvent evt){
         for(int x = 0; x<size; x++){
             for(int y = 0; y<size; y++){
-                if(rects[x][y].contains(evt.getPoint())){
+                if(rectangles[x][y].contains(evt.getPoint())){
                     board.setIterations(0);
                     board.setPos(x, y, !board.getPos(x, y));
                     repaint();
@@ -110,12 +115,63 @@ public class BoardPanel
     public void setSelectedColor(Color newColor){
         selectedColor = newColor;
     }
+
+    public void save(){
+        JFileChooser chooser = new JFileChooser();
+
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("'.board's only", "board");
+        chooser.setFileFilter(filter);
+
+        int option = chooser.showSaveDialog(this);
+
+        File toSave = null;
+        if(option == JFileChooser.APPROVE_OPTION){
+            File selectedFile = chooser.getSelectedFile();
+            toSave = new File(selectedFile.getAbsolutePath());
+        }
+
+        if(toSave != null){
+            Saving_Loading.fileWrite(toSave, board);
+            JOptionPane.showMessageDialog(this, "Saved at: " + toSave.toString(), "Save successful.", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Saving Failed", "Save unsuccessful.", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void load(){
+
+        JFileChooser chooser = new JFileChooser();
+
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("'.board's only", "board");
+        chooser.setFileFilter(filter);
+
+        int option = chooser.showOpenDialog(this);
+
+        File toLoad = null;
+        if(option == JFileChooser.APPROVE_OPTION){
+            File selectedFile = chooser.getSelectedFile();
+            toLoad = new File(selectedFile.getAbsolutePath());
+        }
+
+        Board potentialBoard = null;
+        try{
+            potentialBoard = Saving_Loading.fileRead(toLoad);
+        } catch(BoardFileFormatException e){
+            JOptionPane.showMessageDialog(null, "Incorrect File Type. \nPlease choose a valid File", "Incorrect Format", JOptionPane.ERROR_MESSAGE);
+        }
+
+        if(potentialBoard != null){
+            board = potentialBoard;
+            repaint();
+        }
+    }
     
     @Override
     public void paintComponent(Graphics g){
         for(int x = 0; x<size; x++){
             for(int y = 0; y<size; y++){
-                Rectangle2D rect = rects[x][y];
+                Rectangle2D rect = rectangles[x][y];
                 if(board.getPos(x, y)){
                     g.setColor(selectedColor);
                     g.fillRect((int) rect.getX(), (int) rect.getY(),
