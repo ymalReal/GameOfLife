@@ -15,6 +15,8 @@ public class BoardPanel
     private int speed;
     private Color selectedColor;
     private Board board;
+
+    private GameTypes gameTypes;
     
     private Rectangle2D[][] rects;
     
@@ -24,6 +26,7 @@ public class BoardPanel
         board = new WrapAroundBoard(size);
         rects = new Rectangle2D[size][size];
         selectedColor = Color.RED;
+        gameTypes = GameTypes.STANDARD;
         prepBoard();
     }
     
@@ -32,6 +35,7 @@ public class BoardPanel
         board = new WrapAroundBoard(size);
         rects = new Rectangle2D[size][size];
         selectedColor = Color.RED;
+        gameTypes = GameTypes.STANDARD;
         prepBoard();
     }
     
@@ -91,6 +95,10 @@ public class BoardPanel
                 break;
         }
         repaint();
+    }
+
+    public void setGameType(GameTypes type){
+        board.setGameType(type);
     }
     
     public void setSpeed(int newSpeed){

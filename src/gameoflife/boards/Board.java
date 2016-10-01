@@ -1,5 +1,6 @@
 package gameoflife.boards;
 
+import gameoflife.GameTypes;
 import gameoflife.exceptions.NotOnBoardException;
 
 /**
@@ -13,12 +14,18 @@ public abstract class Board{
     protected int size;
     protected int iterations;
 
+    protected GameTypes gameType = GameTypes.STANDARD;
+
     public int getIterations(){
         return iterations;
     }
 
     public void setIterations(int setTo){
         iterations = setTo;
+    }
+
+    public void setGameType(GameTypes type){
+        gameType = type;
     }
 
     public void setPos(int x, int y, boolean setTo){
@@ -72,12 +79,26 @@ public abstract class Board{
         for(int x = 0; x < size; x++)
             for(int y = 0; y < size; y++){
                 int amount = checkRound(x, y);
-                if(amount == 3)
-                    newBoard[x][y] = true;
-                else if(amount != 2) {
-                    newBoard[x][y] = false;
-                } else {
-                    newBoard[x][y] = getPos(x, y);
+
+                switch(gameType){
+                    default:
+                        if(amount == 3)
+                            newBoard[x][y] = true;
+                        else if(amount != 2) {
+                            newBoard[x][y] = false;
+                        } else {
+                            newBoard[x][y] = getPos(x, y);
+                        }
+                        break;
+                    case CITIES:
+                        if(amount == 3 || amount == 6)
+                            newBoard[x][y] = true;
+                        else if(amount != 2) {
+                            newBoard[x][y] = false;
+                        } else {
+                            newBoard[x][y] = getPos(x, y);
+                        }
+                        break;
                 }
 
             }

@@ -46,6 +46,9 @@ public class GameOfLifeFrame
         boardPanel = new BoardPanel();
         jMenuBar = new JMenuBar();
         jMenuFile = new JMenu();
+        jMenuFileGame = new JMenu();
+        jMenuFileGameStandard = new JMenuItem();
+        jMenuFileGameCities = new JMenuItem();
         jMenuEdit = new JMenu();
         jMenuItemClear = new JMenuItem();
         jMenuEditColor = new JMenu();
@@ -112,6 +115,23 @@ public class GameOfLifeFrame
         getContentPane().add(boardPanel, java.awt.BorderLayout.CENTER);
 
         jMenuFile.setText("File");
+
+        jMenuFileGame.setText("GameType");
+
+        jMenuFileGameStandard.setText("Standard");
+        jMenuFileGameStandard.addActionListener(e -> {
+            boardPanel.setGameType(GameTypes.STANDARD);
+        });
+        jMenuFileGame.add(jMenuFileGameStandard);
+
+        jMenuFileGameCities.setText("Cities");
+        jMenuFileGameCities.addActionListener(e -> {
+            boardPanel.setGameType(GameTypes.CITIES);
+        });
+        jMenuFileGame.add(jMenuFileGameCities);
+
+        jMenuFile.add(jMenuFileGame);
+
         jMenuBar.add(jMenuFile);
 
         jMenuEdit.setText("Edit");
@@ -187,6 +207,9 @@ public class GameOfLifeFrame
     protected JLabel jLabel3;
     protected JLabel jLabelIterator;
     protected JMenu jMenuFile;
+    protected JMenu jMenuFileGame;
+    protected JMenuItem jMenuFileGameStandard;
+    protected JMenuItem jMenuFileGameCities;
     protected JMenuBar jMenuBar;
     protected JMenu jMenuEdit;
     protected JMenu jMenuEditColor;
