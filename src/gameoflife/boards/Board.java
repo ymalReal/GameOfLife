@@ -28,6 +28,10 @@ public abstract class Board{
         gameType = type;
     }
 
+    public GameTypes getGameType(){
+        return gameType;
+    }
+
     public void setPos(int x, int y, boolean setTo){
         try{
             board[x][y] = setTo;

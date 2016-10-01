@@ -34,7 +34,7 @@ public class GameOfLifeFrame
     /**
      *
      */
-    protected void initComponents(){
+    private void initComponents(){
         jPanelIteratorHolder = new JPanel();
         jLabelIteratorLabel = new JLabel();
         jLabelIterator = new JLabel();
@@ -119,15 +119,11 @@ public class GameOfLifeFrame
         jMenuFileGame.setText("GameType");
 
         jMenuFileGameStandard.setText("Standard");
-        jMenuFileGameStandard.addActionListener(e -> {
-            boardPanel.setGameType(GameTypes.STANDARD);
-        });
+        jMenuFileGameStandard.addActionListener(e -> boardPanel.setGameType(GameTypes.STANDARD));
         jMenuFileGame.add(jMenuFileGameStandard);
 
         jMenuFileGameCities.setText("Cities");
-        jMenuFileGameCities.addActionListener(e -> {
-            boardPanel.setGameType(GameTypes.CITIES);
-        });
+        jMenuFileGameCities.addActionListener(e -> boardPanel.setGameType(GameTypes.CITIES));
         jMenuFileGame.add(jMenuFileGameCities);
 
         jMenuFile.add(jMenuFileGame);
@@ -147,42 +143,28 @@ public class GameOfLifeFrame
         jMenuEditColor.setText("Set Cell Color");
 
         jMenuItemRed.setText("Red");
-        jMenuItemRed.addActionListener(e -> {
-            boardPanel.setSelectedColor(Color.RED);
-            boardPanel.repaint();
-        });
+        jMenuItemRed.addActionListener(e -> boardPanel.setSelectedColor(Color.RED));
         jMenuEditColor.add(jMenuItemRed);
 
         jMenuItemBlue.setText("Blue");
-        jMenuItemBlue.addActionListener(e -> {
-            boardPanel.setSelectedColor(Color.BLUE);
-            boardPanel.repaint();
-        });
+        jMenuItemBlue.addActionListener(e -> boardPanel.setSelectedColor(Color.BLUE));
         jMenuEditColor.add(jMenuItemBlue);
 
         jMenuItemGreen.setText("Green");
-        jMenuItemGreen.addActionListener(e -> {
-            boardPanel.setSelectedColor(Color.GREEN);
-            boardPanel.repaint();
-        });
+        jMenuItemGreen.addActionListener(e -> boardPanel.setSelectedColor(Color.GREEN));
         jMenuEditColor.add(jMenuItemGreen);
 
         jMenuItemBlack.setText("Black");
-        jMenuItemBlack.addActionListener(e -> {
-            boardPanel.setSelectedColor(Color.BLACK);
-            boardPanel.repaint();
-        });
+        jMenuItemBlack.addActionListener(e -> boardPanel.setSelectedColor(Color.BLACK));
         jMenuEditColor.add(jMenuItemBlack);
 
         jMenuItemRandomColor.setText("Random");
-        jMenuItemRandomColor.addActionListener(e -> {
-            boardPanel.setSelectedColor(new Color(
-                    (int) (Math.random() * 155) + 100,
-                    (int) (Math.random() * 155) + 100,
-                    (int) (Math.random() * 155) + 100
-            ));
-            boardPanel.repaint();
-        });
+        jMenuItemRandomColor.addActionListener(e -> boardPanel.setSelectedColor(
+                new Color(
+                        (int) (Math.random() * 155) + 100,
+                        (int) (Math.random() * 155) + 100,
+                        (int) (Math.random() * 155) + 100)
+        ));
         jMenuEditColor.add(jMenuItemRandomColor);
 
         jMenuEdit.add(jMenuEditColor);
@@ -201,28 +183,28 @@ public class GameOfLifeFrame
         });
     }
 
-    protected gameoflife.BoardPanel boardPanel;
-    protected JComboBox<BoardTypes> jComboBoxSelector;
-    protected JLabel jLabelIteratorLabel;
-    protected JLabel jLabel3;
-    protected JLabel jLabelIterator;
-    protected JMenu jMenuFile;
-    protected JMenu jMenuFileGame;
-    protected JMenuItem jMenuFileGameStandard;
-    protected JMenuItem jMenuFileGameCities;
-    protected JMenuBar jMenuBar;
-    protected JMenu jMenuEdit;
-    protected JMenu jMenuEditColor;
-    protected JMenuItem jMenuItemBlack;
-    protected JMenuItem jMenuItemBlue;
-    protected JMenuItem jMenuItemClear;
-    protected JMenuItem jMenuItemGreen;
-    protected JMenuItem jMenuItemRandomColor;
-    protected JMenuItem jMenuItemRed;
-    protected JPanel jPanelIteratorHolder;
-    protected JPanel jPanel2;
-    protected JPanel jPanel3;
-    protected JSlider jSliderSpeed;
-    protected Timer timer;
-    protected DefaultComboBoxModel<BoardTypes> model;
+    private gameoflife.BoardPanel boardPanel;
+    private JComboBox<BoardTypes> jComboBoxSelector;
+    private JLabel jLabelIteratorLabel;
+    private JLabel jLabel3;
+    private JLabel jLabelIterator;
+    private JMenu jMenuFile;
+    private JMenu jMenuFileGame;
+    private JMenuItem jMenuFileGameStandard;
+    private JMenuItem jMenuFileGameCities;
+    private JMenuBar jMenuBar;
+    private JMenu jMenuEdit;
+    private JMenu jMenuEditColor;
+    private JMenuItem jMenuItemBlack;
+    private JMenuItem jMenuItemBlue;
+    private JMenuItem jMenuItemClear;
+    private JMenuItem jMenuItemGreen;
+    private JMenuItem jMenuItemRandomColor;
+    private JMenuItem jMenuItemRed;
+    private JPanel jPanelIteratorHolder;
+    private JPanel jPanel2;
+    private JPanel jPanel3;
+    private JSlider jSliderSpeed;
+    private Timer timer;
+    private DefaultComboBoxModel<BoardTypes> model;
 }

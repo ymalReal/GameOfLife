@@ -71,6 +71,7 @@ public class BoardPanel
     }
     
     public void setBoard(BoardTypes b){
+        GameTypes currType = board.getGameType();
         switch(b){
             case Empty:
                 board = new WrapAroundBoard(size);
@@ -94,6 +95,7 @@ public class BoardPanel
                 board = new Tumbler(size);
                 break;
         }
+        board.setGameType(currType);
         repaint();
     }
 
@@ -117,6 +119,7 @@ public class BoardPanel
     
     public void setSelectedColor(Color newColor){
         selectedColor = newColor;
+        this.repaint();
     }
     
     @Override
