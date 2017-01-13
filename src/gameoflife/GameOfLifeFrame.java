@@ -1,8 +1,9 @@
 package gameoflife;
 
 import javax.swing.*;
-
 import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -51,6 +52,9 @@ public class GameOfLifeFrame
         jMenuFileGameCities = new JMenuItem();
         jMenuEdit = new JMenu();
         jMenuItemClear = new JMenuItem();
+        jMenuItemPause = new JMenuItem();
+        isPaused = true;
+        previousVal = jSliderSpeed.getMaximum();
         jMenuEditColor = new JMenu();
         jMenuItemRed = new JMenuItem();
         jMenuItemBlue = new JMenuItem();
@@ -137,8 +141,16 @@ public class GameOfLifeFrame
         jMenuItemClear.addActionListener(e -> {
             boardPanel.clear();
             jLabelIterator.setText("0");
+            jSliderSpeed.setValue(0);
         });
         jMenuEdit.add(jMenuItemClear);
+
+        jMenuItemPause.setText("Resume");
+        jMenuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.META_MASK));
+        jMenuItemPause.addActionListener((e) -> {
+
+        });
+        jMenuEdit.add(jMenuItemPause);
 
         jMenuEditColor.setText("Set Cell Color");
 
@@ -195,6 +207,9 @@ public class GameOfLifeFrame
     private JMenuBar jMenuBar;
     private JMenu jMenuEdit;
     private JMenu jMenuEditColor;
+    private JMenuItem jMenuItemPause;
+    private boolean isPaused;
+    private int previousVal;
     private JMenuItem jMenuItemBlack;
     private JMenuItem jMenuItemBlue;
     private JMenuItem jMenuItemClear;
