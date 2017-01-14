@@ -53,7 +53,6 @@ public class GameOfLifeFrame
         jMenuEdit = new JMenu();
         jMenuItemClear = new JMenuItem();
         jMenuItemPause = new JMenuItem();
-        isPaused = true;
         previousVal = jSliderSpeed.getMaximum();
         jMenuEditColor = new JMenu();
         jMenuItemRed = new JMenuItem();
@@ -84,11 +83,14 @@ public class GameOfLifeFrame
         jSliderSpeed.setValue(0);
         jSliderSpeed.addChangeListener(evt -> {
             if(!jSliderSpeed.getValueIsAdjusting()){
-                if(!(jSliderSpeed.getValue()==0)){
+                if (jSliderSpeed.getValue() != 0) {
                     timer.setDelay(10000/jSliderSpeed.getValue());
                     timer.start();
-                } else
+                    jMenuItemPause.setText("Pause");
+                } else {
                     timer.stop();
+                    jMenuItemPause.setText("Resume");
+                }
             }
         });
         jPanel2.add(jSliderSpeed);
@@ -148,7 +150,12 @@ public class GameOfLifeFrame
         jMenuItemPause.setText("Resume");
         jMenuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.META_MASK));
         jMenuItemPause.addActionListener((e) -> {
-
+            if (jSliderSpeed.getValue() == 0) {
+                jSliderSpeed.setValue(previousVal);
+            } else {
+                previousVal = jSliderSpeed.getValue();
+                jSliderSpeed.setValue(0);
+            }
         });
         jMenuEdit.add(jMenuItemPause);
 
@@ -208,7 +215,6 @@ public class GameOfLifeFrame
     private JMenu jMenuEdit;
     private JMenu jMenuEditColor;
     private JMenuItem jMenuItemPause;
-    private boolean isPaused;
     private int previousVal;
     private JMenuItem jMenuItemBlack;
     private JMenuItem jMenuItemBlue;

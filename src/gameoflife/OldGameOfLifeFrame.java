@@ -5,14 +5,16 @@
  */
 package gameoflife;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author willne763
  */
+@SuppressWarnings("ALL")
 @Deprecated
 public class OldGameOfLifeFrame
         extends javax.swing.JFrame{
@@ -183,7 +185,7 @@ public class OldGameOfLifeFrame
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
         if(!jSlider1.getValueIsAdjusting()){
             if(!(jSlider1.getValue()==0)){
-                timer.setDelay((int) 10000/jSlider1.getValue());
+                timer.setDelay(10000 / jSlider1.getValue());
                 timer.start();
             } else {
                 timer.stop();
@@ -243,6 +245,7 @@ public class OldGameOfLifeFrame
         java.awt.EventQueue.invokeLater(new Runnable(){
             public void run(){
                 System.setProperty("apple.laf.useScreenMenuBar", "true");
+                //noinspection deprecation
                 new OldGameOfLifeFrame().setVisible(true);
             }
         });

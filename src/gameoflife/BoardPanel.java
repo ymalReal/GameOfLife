@@ -2,11 +2,10 @@ package gameoflife;
 
 import gameoflife.boards.*;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
-import javax.swing.JComponent;
 
 public class BoardPanel
         extends JComponent{
@@ -17,14 +16,14 @@ public class BoardPanel
     private Board board;
 
     private GameTypes gameTypes;
-    
-    private Rectangle2D[][] rects;
+
+    private Rectangle2D[][] rectangles;
     
     public BoardPanel(){
         this.size = 65;
         this.speed = 0;
         board = new WrapAroundBoard(size);
-        rects = new Rectangle2D[size][size];
+        rectangles = new Rectangle2D[size][size];
         selectedColor = Color.RED;
         gameTypes = GameTypes.STANDARD;
         prepBoard();
@@ -33,7 +32,7 @@ public class BoardPanel
     public BoardPanel(int size){
         this.size = size;
         board = new WrapAroundBoard(size);
-        rects = new Rectangle2D[size][size];
+        rectangles = new Rectangle2D[size][size];
         selectedColor = Color.RED;
         gameTypes = GameTypes.STANDARD;
         prepBoard();
@@ -42,7 +41,7 @@ public class BoardPanel
     private void prepBoard(){
         for(int x = 0; x<size; x++){
             for(int y = 0; y<size; y++){
-                rects[x][y] = new Rectangle2D.Double(x*10, y*10, 10, 10);
+                rectangles[x][y] = new Rectangle2D.Double(x * 10, y * 10, 10, 10);
             }
         }
     }
@@ -50,8 +49,8 @@ public class BoardPanel
     public void clicked(MouseEvent evt){
         for(int x = 0; x<size; x++){
             for(int y = 0; y<size; y++){
-                if(rects[x][y].contains(evt.getPoint())){
-                    board.setIterations(0);
+                if (rectangles[x][y].contains(evt.getPoint())) {
+                    board.resetIterations();
                     board.setPos(x, y, !board.getPos(x, y));
                     repaint();
                     return;
@@ -126,7 +125,7 @@ public class BoardPanel
     public void paintComponent(Graphics g){
         for(int x = 0; x<size; x++){
             for(int y = 0; y<size; y++){
-                Rectangle2D rect = rects[x][y];
+                Rectangle2D rect = rectangles[x][y];
                 if(board.getPos(x, y)){
                     g.setColor(selectedColor);
                     g.fillRect((int) rect.getX(), (int) rect.getY(),

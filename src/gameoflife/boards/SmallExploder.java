@@ -3,6 +3,7 @@ package gameoflife.boards;
 public class SmallExploder 
         extends WrapAroundBoard{
 
+    @SuppressWarnings("PointlessArithmeticExpression")
     public SmallExploder(int size){
         super(size);
         int center = size/2;

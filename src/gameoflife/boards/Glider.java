@@ -3,6 +3,7 @@ package gameoflife.boards;
 public class Glider
         extends WrapAroundBoard{
 
+    @SuppressWarnings("PointlessArithmeticExpression")
     public Glider(int size){
         super(size);
         int c=size/2;

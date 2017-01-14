@@ -2,6 +2,7 @@ package gameoflife.boards;
 
 public class LightSpaceship extends WrapAroundBoard{
 
+    @SuppressWarnings("PointlessArithmeticExpression")
     public LightSpaceship(int size){
         super(size);
         int c = size/2;
@@ -14,7 +15,7 @@ public class LightSpaceship extends WrapAroundBoard{
         board[c+2][c-1] = true;
         board[c+2][c+0] = true;
         board[c+2][c+1] = true;
-        
+
     }
 
 }

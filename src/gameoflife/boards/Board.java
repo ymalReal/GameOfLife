@@ -20,8 +20,8 @@ public abstract class Board{
         return iterations;
     }
 
-    public void setIterations(int setTo){
-        iterations = setTo;
+    public void resetIterations() {
+        iterations = 0;
     }
 
     public void setGameType(GameTypes type){
