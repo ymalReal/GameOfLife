@@ -1,11 +1,12 @@
 package gameoflife.boards;
 
+import gameoflife.BoardType;
 import gameoflife.GameTypes;
 import gameoflife.exceptions.NotOnBoardException;
 
 /**
  * GameOfLife
- * Created by willne763
+ * Created by cwillnerd
  * on 8/3/16.
  */
 public abstract class Board{
@@ -72,7 +73,7 @@ public abstract class Board{
         return count;
     }
 
-    @SuppressWarnings("SimplifiableIfStatement")
+//    @SuppressWarnings("SimplifiableIfStatement")
     public void iterate(){
         boolean[][] newBoard = new boolean[size][size];
 

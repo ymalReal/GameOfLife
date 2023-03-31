@@ -23,7 +23,7 @@ public class OldGameOfLifeFrame
      * Creates new form OldGameOfLifeFrame
      */
     public OldGameOfLifeFrame(){
-        model = new DefaultComboBoxModel<>(BoardTypes.values());
+        model = new DefaultComboBoxModel<>(BoardShapes.values());
         initComponents();
         int delay=100;
         ActionListener listener = new ActionListener() {
@@ -53,7 +53,7 @@ public class OldGameOfLifeFrame
         jSlider1 = new javax.swing.JSlider();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<BoardTypes>();
+        jComboBox1 = new javax.swing.JComboBox<BoardShapes>();
         boardPanel = new gameoflife.BoardPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -204,7 +204,7 @@ public class OldGameOfLifeFrame
     }//GEN-LAST:event_boardPanelMouseClicked
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        boardPanel.setBoard((BoardTypes) jComboBox1.getSelectedItem());
+        boardPanel.setBoard((BoardShapes) jComboBox1.getSelectedItem());
         jLabelIter.setText("0");
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
@@ -253,7 +253,7 @@ public class OldGameOfLifeFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private gameoflife.BoardPanel boardPanel;
-    private javax.swing.JComboBox<BoardTypes> jComboBox1;
+    private javax.swing.JComboBox<BoardShapes> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelIter;
@@ -273,5 +273,5 @@ public class OldGameOfLifeFrame
     private javax.swing.JSlider jSlider1;
     // End of variables declaration//GEN-END:variables
     private Timer timer;
-    private DefaultComboBoxModel<BoardTypes> model;
+    private DefaultComboBoxModel<BoardShapes> model;
 }

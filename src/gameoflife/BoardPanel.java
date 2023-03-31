@@ -14,6 +14,7 @@ public class BoardPanel
     private int speed;
     private Color selectedColor;
     private Board board;
+    private BoardType boardType;
 
     private GameTypes gameTypes;
 
@@ -37,6 +38,21 @@ public class BoardPanel
         gameTypes = GameTypes.STANDARD;
         prepBoard();
     }
+
+    public BoardPanel(int size, BoardType type){
+        this.size = size;
+        this.boardType = type;
+        switch (type){
+            case WrapAroundBoard -> board = new WrapAroundBoard(size);
+            case FallOffBoard -> board = new FallOffBoard(size);
+            case WalledOffBoard -> board = new WalledOffBoard(size);
+        }
+        rectangles = new Rectangle2D[size][size];
+        selectedColor = Color.RED;
+        gameTypes = GameTypes.STANDARD;
+        prepBoard();
+    }
+
     
     private void prepBoard(){
         for(int x = 0; x<size; x++){
@@ -65,41 +81,66 @@ public class BoardPanel
     }
     
     public void clear(){
-        board = new WrapAroundBoard(size);
+        switch (boardType){
+            case WrapAroundBoard -> board = new WrapAroundBoard(size);
+            case FallOffBoard -> board = new FallOffBoard(size);
+            case WalledOffBoard -> board = new WalledOffBoard(size);
+        }
         repaint();
     }
     
-    public void setBoard(BoardTypes b){
+    public void setBoard(BoardShapes b){
         GameTypes currType = board.getGameType();
-        switch(b){
-            case Empty:
-                board = new WrapAroundBoard(size);
-                break;
-            case SmallExploder:
-                board = new SmallExploder(size);
-                break;
-            case Glider:
-                board = new Glider(size);
-                break;
-            case Exploder:
-                board = new Exploder(size);
-                break;
-            case RowOf10:
-                board = new RowOf10(size);
-                break;
-            case LightSpaceship:
-                board = new LightSpaceship(size);
-                break;
-            case Tumbler:
-                board = new Tumbler(size);
-                break;
+        switch (b) {
+            case Empty -> board = new WrapAroundBoard(size);
+            case SmallExploder -> board = new SmallExploder(size);
+            case Glider -> board = new Glider(size);
+            case Exploder -> board = new Exploder(size);
+            case RowOf10 -> board = new RowOf10(size);
+            case LightSpaceship -> board = new LightSpaceship(size);
+            case Tumbler -> board = new Tumbler(size);
         }
         board.setGameType(currType);
         repaint();
     }
 
+    public void changeBoardSizeSquare(int newSize){
+        this.size = newSize;
+        board = new WrapAroundBoard(size);
+        rectangles = new Rectangle2D[size][size];
+        selectedColor = Color.RED;
+        gameTypes = GameTypes.STANDARD;
+        prepBoard();
+    }
+
+    public void fullScreen(){
+        System.err.println("Before;;");
+        System.err.println("Size: " + this.getSize());
+        System.err.println("Preferred Size: " + this.getPreferredSize());
+        System.err.println("Maximum Size: " + this.getMaximumSize());
+        System.err.println("Minimum Size: " + this.getMinimumSize());
+        Container parent = null;
+        while(!(parent instanceof JFrame)){
+            if (parent == null) parent = this.getParent();
+            else parent = parent.getParent();
+            System.err.println(parent.getClass());
+        }
+        JFrame topJFrame = (JFrame) parent;
+        topJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        System.err.println("After;;");
+        System.err.println("Size: " + this.getSize());
+        System.err.println("Preferred Size: " + this.getPreferredSize());
+        System.err.println("Maximum Size: " + this.getMaximumSize());
+        System.err.println("Minimum Size: " + this.getMinimumSize());
+    }
+
     public void setGameType(GameTypes type){
         board.setGameType(type);
+    }
+
+    public void setBoardType(BoardType type){
+        this.boardType = type;
+        clear();
     }
     
     public void setSpeed(int newSpeed){

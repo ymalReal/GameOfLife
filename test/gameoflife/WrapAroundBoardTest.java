@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author willne763
+ * @author cwillnerd
  */
 public class WrapAroundBoardTest{
     

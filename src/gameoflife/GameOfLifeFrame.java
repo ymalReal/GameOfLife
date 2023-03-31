@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * GameOfLife
- * Created by willne763
+ * Created by cwillnerd
  * on 8/3/16.
  *
  * The overall frame and control for the <code>BoardPanel</code>
@@ -22,7 +22,7 @@ public class GameOfLifeFrame
      * Constructor that initializes all components and the timer for iteration.
      */
     public GameOfLifeFrame(){
-        model = new DefaultComboBoxModel<>(BoardTypes.values());
+        model = new DefaultComboBoxModel<>(BoardShapes.values());
         initComponents();
         int delay = 100;
         timer = new Timer(delay, e -> {
@@ -47,6 +47,10 @@ public class GameOfLifeFrame
         boardPanel = new BoardPanel();
         jMenuBar = new JMenuBar();
         jMenuFile = new JMenu();
+        jMenuFileBoard = new JMenu();
+        jMenuFileBoardWrap = new JMenuItem();
+        jMenuFileBoardFall = new JMenuItem();
+        jMenuFileBoardWall = new JMenuItem();
         jMenuFileGame = new JMenu();
         jMenuFileGameStandard = new JMenuItem();
         jMenuFileGameCities = new JMenuItem();
@@ -60,6 +64,13 @@ public class GameOfLifeFrame
         jMenuItemGreen = new JMenuItem();
         jMenuItemBlack = new JMenuItem();
         jMenuItemRandomColor = new JMenuItem();
+
+        //testing values
+        jMenuTest = new JMenu();
+        jMenuResize = new JMenu();
+        jMenuItemResizeBig = new JMenuItem();
+        jMenuItemResizeNormal = new JMenuItem();
+        jMenuItemResizeFullScreen = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(740, 730));
@@ -102,7 +113,7 @@ public class GameOfLifeFrame
 
         jComboBoxSelector.setModel(model);
         jComboBoxSelector.addActionListener(evt -> {
-            boardPanel.setBoard((BoardTypes) jComboBoxSelector.getSelectedItem());
+            boardPanel.setBoard((BoardShapes) jComboBoxSelector.getSelectedItem());
             jLabelIterator.setText("0");
         });
         jPanel3.add(jComboBoxSelector);
@@ -122,6 +133,22 @@ public class GameOfLifeFrame
 
         jMenuFile.setText("File");
 
+        jMenuFileBoard.setText("BoardType");
+
+        jMenuFileBoardWrap.setText("WrapAround Board");
+        jMenuFileBoardWrap.addActionListener(e -> boardPanel.setBoardType(BoardType.WrapAroundBoard));
+        jMenuFileBoard.add(jMenuFileBoardWrap);
+
+        jMenuFileBoardFall.setText("FallOff Board");
+        jMenuFileBoardFall.addActionListener(e -> boardPanel.setBoardType(BoardType.FallOffBoard));
+        jMenuFileBoard.add(jMenuFileBoardFall);
+
+        jMenuFileBoardWall.setText("WalledOff Board");
+        jMenuFileBoardWall.addActionListener(e -> boardPanel.setBoardType(BoardType.WalledOffBoard));
+        jMenuFileBoard.add(jMenuFileBoardWall);
+
+        jMenuFile.add(jMenuFileBoard);
+
         jMenuFileGame.setText("GameType");
 
         jMenuFileGameStandard.setText("Standard");
@@ -138,7 +165,7 @@ public class GameOfLifeFrame
 
         jMenuEdit.setText("Edit");
 
-        jMenuItemClear.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.META_MASK));
+        jMenuItemClear.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, InputEvent.CTRL_MASK));
         jMenuItemClear.setText("Clear WrapAroundBoard");
         jMenuItemClear.addActionListener(e -> {
             boardPanel.clear();
@@ -148,7 +175,7 @@ public class GameOfLifeFrame
         jMenuEdit.add(jMenuItemClear);
 
         jMenuItemPause.setText("Resume");
-        jMenuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.META_MASK));
+        jMenuItemPause.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
         jMenuItemPause.addActionListener((e) -> {
             if (jSliderSpeed.getValue() == 0) {
                 jSliderSpeed.setValue(previousVal);
@@ -190,6 +217,26 @@ public class GameOfLifeFrame
 
         jMenuBar.add(jMenuEdit);
 
+        //Testing
+        jMenuItemResizeBig.setText("Resize Big");
+        jMenuItemResizeBig.addActionListener(e -> boardPanel.changeBoardSizeSquare(175));
+
+        jMenuItemResizeNormal.setText("Resize Normal");
+        jMenuItemResizeNormal.addActionListener(e -> boardPanel.changeBoardSizeSquare(65));
+
+        jMenuItemResizeFullScreen.setText("TEST: Resize Full Screen");
+        jMenuItemResizeFullScreen.addActionListener(e -> boardPanel.fullScreen());
+
+        jMenuResize.setText("Resize");
+        jMenuResize.add(jMenuItemResizeBig);
+        jMenuResize.add(jMenuItemResizeNormal);
+        jMenuResize.add(jMenuItemResizeFullScreen);
+
+        jMenuTest.setText("Testing");
+        jMenuTest.add(jMenuResize);
+
+        jMenuBar.add(jMenuTest);
+
         setJMenuBar(jMenuBar);
 
         pack();
@@ -203,11 +250,15 @@ public class GameOfLifeFrame
     }
 
     private gameoflife.BoardPanel boardPanel;
-    private JComboBox<BoardTypes> jComboBoxSelector;
+    private JComboBox<BoardShapes> jComboBoxSelector;
     private JLabel jLabelIteratorLabel;
     private JLabel jLabel3;
     private JLabel jLabelIterator;
     private JMenu jMenuFile;
+    private JMenu jMenuFileBoard;
+    private JMenuItem jMenuFileBoardWrap;
+    private JMenuItem jMenuFileBoardFall;
+    private JMenuItem jMenuFileBoardWall;
     private JMenu jMenuFileGame;
     private JMenuItem jMenuFileGameStandard;
     private JMenuItem jMenuFileGameCities;
@@ -227,5 +278,12 @@ public class GameOfLifeFrame
     private JPanel jPanel3;
     private JSlider jSliderSpeed;
     private Timer timer;
-    private DefaultComboBoxModel<BoardTypes> model;
+    private DefaultComboBoxModel<BoardShapes> model;
+
+    //testing stuff
+    private JMenu jMenuTest;
+    private JMenu jMenuResize;
+    private JMenuItem jMenuItemResizeBig;
+    private JMenuItem jMenuItemResizeNormal;
+    private JMenuItem jMenuItemResizeFullScreen;
 }

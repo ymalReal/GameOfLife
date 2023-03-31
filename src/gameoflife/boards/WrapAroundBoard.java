@@ -3,7 +3,7 @@ package gameoflife.boards;
 /**
  * Test to see if the principal of the board will work;
  *
- * @author willne763
+ * @author cwillnerd
  */
 public class WrapAroundBoard
         extends Board{
